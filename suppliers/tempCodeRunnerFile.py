@@ -1,0 +1,1 @@
+'/Users/adilbekpirnazarov/Desktop/pp2/10/suppliers/database.ini'

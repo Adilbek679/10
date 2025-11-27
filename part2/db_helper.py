@@ -6,19 +6,17 @@ def get_connection():
     return psycopg2.connect(**config)
 
 def get_user(username):
-    """Возвращает пользователя по username (id, username, рекорд)"""
     config = load_config("database.ini")
     try:
         with psycopg2.connect(**config) as conn:
             with conn.cursor() as cur:
                 cur.execute("SELECT id, username, score FROM users WHERE username=%s", (username,))
-                return cur.fetchone()  # (id, username, score) или None
+                return cur.fetchone()
     except Exception as e:
         print(e)
         return None
 
 def create_user(username):
-    """Создаёт пользователя с рекордом 0"""
     config = load_config("database.ini")
     try:
         with psycopg2.connect(**config) as conn:
@@ -79,7 +77,7 @@ def get_leaderboard():
                     JOIN users u ON u.id = s.user_id
                     ORDER BY s.score DESC LIMIT 10
                 """)
-                return cur.fetchall()  # вернёт [(username, score, level), ...]
+                return cur.fetchall()  
     except Exception as e:
         print(e)
         return []

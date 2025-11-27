@@ -56,12 +56,10 @@ def run_snake_game(current_user, snake=None, score=0, level=1, direction="right"
 
     def reset_game(snake=None, score=0, level=1, direction="right"):
         if snake is not None:
-            # продолжаем с переданных данных
             food_x, food_y, cur_food, food_timer = spawn_food(snake)
             turns = []
             game_over = False
         else:
-            # начинаем новую игру
             snake = [(100,100),(68,100),(36,100)]
             direction = "right"
             food_x, food_y, cur_food, food_timer = spawn_food(snake)
@@ -118,10 +116,10 @@ def run_snake_game(current_user, snake=None, score=0, level=1, direction="right"
                 grow = 0
                 fps = 8
             if e.type == pygame.KEYDOWN:
-                if e.key == pygame.K_ESCAPE:  # выйти в меню
+                if e.key == pygame.K_ESCAPE:
                     save_game(current_user[0], snake, score, level, direction)
                     return
-                if e.key == pygame.K_p:  # пауза
+                if e.key == pygame.K_p:
                     paused = not paused
                     if paused:
                         save_game(current_user[0], snake, score, level, direction)
@@ -187,10 +185,9 @@ def run_snake_game(current_user, snake=None, score=0, level=1, direction="right"
                 new_level = max(level, old_level)
                 update_user_score(current_user[0], new_score, new_level)
 
-        # Внутри цикла
         for e in pygame.event.get():
             if e.type == pygame.KEYDOWN:
-                if e.key == pygame.K_ESCAPE:  # выйти в меню
+                if e.key == pygame.K_ESCAPE: 
                     save_record()
                     return
             if game_over and e.type == pygame.KEYDOWN:
@@ -209,8 +206,8 @@ def run_snake_game(current_user, snake=None, score=0, level=1, direction="right"
             screen.blit(restart, (220,420))
             pygame.display.update()
 
-            paused = True  # временно "замораживаем" игру
-            continue  # пропускаем остальной код движения
+            paused = True  
+            continue
 
 
 
@@ -235,7 +232,6 @@ def run_snake_game(current_user, snake=None, score=0, level=1, direction="right"
                     screen.blit(img,(x,y))
 
 
-        # === Save record only when game ends or paused ===
 
 
         screen.blit(cur_food["img"], (food_x,food_y))

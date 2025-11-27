@@ -9,14 +9,12 @@ pygame.display.set_caption("Snake Game Menu")
 font = pygame.font.SysFont("Arial", 40)
 small_font = pygame.font.SysFont("Arial", 30)
 
-# Кнопки меню
 menu_items = ["Login/Register", "Start Game", "Leaderboard", "Profile", "Exit"]
 selected_index = 0
 
-# Фон
+
 background = pygame.transform.scale(pygame.image.load("images/menu_bg.png"), (800,800))
 
-# Текущий пользователь
 current_user = None
 
 def draw_menu():
@@ -48,13 +46,13 @@ def input_username():
                     input_active = False
                 elif event.key == pygame.K_BACKSPACE:
                     username = username[:-1]
-                elif event.key == pygame.K_ESCAPE:  # <<< ESC возвращает назад
+                elif event.key == pygame.K_ESCAPE:  
                     return None
                 else:
                     username += event.unicode
 
     if username.strip() == "":
-        return None  # если пользователь не ввёл имя
+        return None 
 
     user = get_user(username)
     if not user:
@@ -177,7 +175,6 @@ while running:
             pygame.quit()
             sys.exit()
 
-        # Стрелки и Enter
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_DOWN:
                 selected_index = (selected_index + 1) % len(menu_items)
@@ -216,8 +213,7 @@ while running:
                     if current_user:
                         saved = load_game(current_user[0])
                         if saved:
-                            # Показываем выбор: Continue / New Game
-                            continue_game = show_continue_menu()  # функция, возвращает True для Continue, False для New
+                            continue_game = show_continue_menu()
                             if continue_game:
                                 snake, score, level, direction = saved
                                 run_snake_game(current_user, snake, score, level, direction)
